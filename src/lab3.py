@@ -75,25 +75,39 @@ elif screen_type == "4":
 else:
     raise Exception("Неверно выбран тип защитного экрана")
 
-# todo prompt for all params
 # число декадных длин волн
-N = 4
+message = "Введите число декадных длин волны, example: 4\n"
+N = int(input(message))
+
 # размеры экрана (м)
-b = 2.5
-l = 1.0
-h = 1.5
+message = "Введите размеры экрана: ширина, длина, высота (м)\n"
+b = float(input(message))
+l = float(input())
+h = float(input())
+
 # линейный размер щелей (мм)
-m = 40.0
+message = "Введите линейный размер щелей (мм), 40.0\n"
+m = float(input(message))
+
 # радиус проволоки (мм)
-rs = 0.03
+message = "Введите радиус проволоки (мм) 0.03\n"
+rs = float(input(message))
+
 # шаг сетки экрана (мм)
-s = 0.2
+message = "Введите шаг сетки (мм) 0.2"
+s = float(input(message))
+
 # минимальна длинна волны (м) (lv в вариантах)
-a_min = 0.2
+message = "Введите минимальную длины волны (м) 0.2\n"
+a_min = float(input(message))
+
 # толщина металла (мм)
-d = 0.01
+message = "Введите толщину металла (мм) 0.01\n"
+d = float(input(message))
+
 # удельное сопротивление на низких частотах (Ом * м)
-p = 10 ** (-7)
+message = "Введите толщину металла (мм) 0.0000007\n"
+p = float(input(message))
 
 # Расчеты
 # 1
