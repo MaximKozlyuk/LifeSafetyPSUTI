@@ -9,6 +9,11 @@ def default_input(default):
         return val
 
 
+# для приведения миллиметров к метрам
+def mm(x):
+    return x / 1000
+
+
 def screen_radius(length, width, deep):
     return 0.62 * (length * width * deep) ** (1 / 3)
 
@@ -99,7 +104,7 @@ print("Введите радиус проволоки (мм), 0.03")
 rs = float(default_input(0.03))
 
 # шаг сетки экрана (мм)
-print("Введите шаг сетки (мм), 0.2")
+print("Введите шаг сетки экрана (мм), 0.2")
 s = float(default_input(0.2))
 
 # минимальна длинна волны (м) (lv в вариантах)
@@ -112,6 +117,9 @@ d = float(default_input(0.01))
 
 # удельное сопротивление на низких частотах (Ом * м)
 print("Введите удельное сопротивление на низких частотах (Ом * м), 0.0000001")
+print("""Сталь: 0.0000001
+Алюминий: 0.0000000281
+Медь: 0.0000000175""")
 p = float(default_input(0.0000001))
 
 print("Введите поверхностное НЧ-сопротивление краски (Ом * м^-2), 0.5")
@@ -151,17 +159,17 @@ for i in range(0, N+1):
     print("Ze =", Ze[i], "Zh =", Zh[i])
     print("Ψ‎ =", psi_i[i])
     if screen_type == "1":
-        print("ЭЭЕ =", metal_screen(psi_i[i], p, Ze[i], d / 1000, m / 1000, ai[i]),
-              "ЭЭН =", metal_screen(psi_i[i], p, Zh[i], d / 1000, m / 1000, ai[i]))
+        print("ЭЭЕ =", metal_screen(psi_i[i], p, Ze[i], mm(d), mm(m), ai[i]),
+              "ЭЭН =", metal_screen(psi_i[i], p, Zh[i], mm(d), mm(m), ai[i]))
     elif screen_type == "2":
-        print("ЭЭЕ =", screen_func(psi_i[i], p, Ze[i], rs, s),
-              "ЭЭН =", screen_func(psi_i[i], p, Zh[i], rs, s))
+        print("ЭЭЕ =", screen_func(psi_i[i], p, Ze[i], mm(rs), mm(s)),
+              "ЭЭН =", screen_func(psi_i[i], p, Zh[i], mm(rs), mm(s)))
     elif screen_type == "3":
-        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], Rk),
+        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], Rk),    # todo возможно Rk нужно приводить к mm()
               "ЭЭН =", screen_func(psi_i[i], Ze[i], Rk))
     elif screen_type == "4":
-        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], d / 1000, p),
-              "ЭЭН =", screen_func(psi_i[i], Zh[i], d / 1000, p))
+        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], mm(d), p),
+              "ЭЭН =", screen_func(psi_i[i], Zh[i], mm(d), p))
     print()
 
 # 4
