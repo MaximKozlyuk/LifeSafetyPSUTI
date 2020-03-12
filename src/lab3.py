@@ -1,6 +1,14 @@
 import math
 
 
+def default_input(default):
+    val = input()
+    if val == "":
+        return default
+    else:
+        return val
+
+
 def screen_radius(length, width, deep):
     return 0.62 * (length * width * deep) ** (1 / 3)
 
@@ -21,8 +29,8 @@ def beta(a_i):
 
 # Формулы для различных типов экранов
 # формула 3.1
-def metal_screen():
-    return 0
+def metal_screen(psi_, b_, p_, Zi, d_, m_):
+    return psi_ * (((b_ / p_) * Zi) ** (1/2)) * math.exp((2 * math.pi * d_) / m_)
 
 
 # формула 3.2   todo end
@@ -62,7 +70,6 @@ chooseScreenTypeMsg = """Выберете тип защитного экрана
 (введите номер от 1 до 4)
 """
 screen_type = input(chooseScreenTypeMsg)
-print("screen_type = ", screen_type)
 screen_func = None
 if screen_type == "1":
     screen_func = metal_screen
@@ -75,39 +82,40 @@ elif screen_type == "4":
 else:
     raise Exception("Неверно выбран тип защитного экрана")
 
+print("Для выбора значения из примера ничего не вводите и нажмите enter.")
 # число декадных длин волн
-message = "Введите число декадных длин волны, example: 4\n"
-N = int(input(message))
+print("Введите число декадных длин волны, пример: 4")
+N = default_input(4)
 
 # размеры экрана (м)
-message = "Введите размеры экрана: ширина, длина, высота (м)\n"
-b = float(input(message))
-l = float(input())
-h = float(input())
+print("Введите размеры экрана: ширина, длина, высота (м), 2.5, 1.0, 1.5\n")
+b = default_input(2.5)
+l = default_input(1.0)
+h = default_input(1.5)
 
 # линейный размер щелей (мм)
-message = "Введите линейный размер щелей (мм), 40.0\n"
-m = float(input(message))
+print("Введите линейный размер щелей (мм), 40.0")
+m = default_input(40.0)
 
 # радиус проволоки (мм)
-message = "Введите радиус проволоки (мм), 0.03\n"
-rs = float(input(message))
+print("Введите радиус проволоки (мм), 0.03")
+rs = default_input(0.03)
 
 # шаг сетки экрана (мм)
-message = "Введите шаг сетки (мм), 0.2\n"
-s = float(input(message))
+print("Введите шаг сетки (мм), 0.2")
+s = default_input(0.2)
 
 # минимальна длинна волны (м) (lv в вариантах)
-message = "Введите минимальную длины волны (м), 0.2\n"
-a_min = float(input(message))
+print("Введите минимальную длины волны (м), 0.2")
+a_min = default_input(0.2)
 
 # толщина металла (мм)
-message = "Введите толщину металла (мм), 0.01\n"
-d = float(input(message))
+print("Введите толщину металла (мм), 0.01")
+d = default_input(0.01)
 
 # удельное сопротивление на низких частотах (Ом * м)
-message = "Введите удельное сопротивление на низких частотах (Ом * м), 0.0000007\n"
-p = float(input(message))
+print("Введите удельное сопротивление на низких частотах (Ом * м), 0.0000007")
+p = default_input(0.0000007)
 
 # Расчеты
 # 1
@@ -143,7 +151,15 @@ for i in range(0, N+1):
     print("Ze =", Ze[i], "Zh =", Zh[i])
     print("Ψ‎ =", psi_i[i])
     # todo if screen_type == 1 ... elif ... to resolve different func params
-    print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], d / 1000, p), "ЭЭН =", screen_func(psi_i[i], Zh[i], d / 1000, p))
+    if screen_type == "1":
+        print("Not implemented yet!")
+    elif screen_type == "2":
+        print("Not implemented yet!")
+    elif screen_type == "3":
+        print("Not implemented yet!")
+    elif screen_type == "4":
+        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], d / 1000, p), "ЭЭН =", screen_func(psi_i[i], Zh[i], d / 1000, p))
+
     print()
 
 # 4
