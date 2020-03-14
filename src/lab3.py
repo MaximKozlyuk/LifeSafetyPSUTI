@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 
 
 def default_input(default):
@@ -145,6 +146,8 @@ beta_i = []
 Ze = []
 Zh = []
 psi_i = []
+ee_e = []
+ee_h = []
 for i in range(0, N+1):
     beta_i.append(beta(ai[i]))
     xi.append(sr * beta_i[i])
@@ -159,22 +162,43 @@ for i in range(0, N+1):
     print("Ze =", Ze[i], "Zh =", Zh[i])
     print("Ψ‎ =", psi_i[i])
     if screen_type == "1":
-        print("ЭЭЕ =", metal_screen(psi_i[i], p, Ze[i], mm(d), mm(m), ai[i]),
-              "ЭЭН =", metal_screen(psi_i[i], p, Zh[i], mm(d), mm(m), ai[i]))
+        ee_e.append(metal_screen(psi_i[i], p, Ze[i], mm(d), mm(m), ai[i]))
+        ee_h.append(metal_screen(psi_i[i], p, Zh[i], mm(d), mm(m), ai[i]))
+        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
     elif screen_type == "2":
-        print("ЭЭЕ =", screen_func(psi_i[i], p, Ze[i], mm(rs), mm(s)),
-              "ЭЭН =", screen_func(psi_i[i], p, Zh[i], mm(rs), mm(s)))
+        ee_e.append(screen_func(psi_i[i], p, Ze[i], mm(rs), mm(s)))
+        ee_h.append(screen_func(psi_i[i], p, Zh[i], mm(rs), mm(s)))
+        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
     elif screen_type == "3":
-        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], Rk),    # todo возможно Rk нужно приводить к mm()
-              "ЭЭН =", screen_func(psi_i[i], Ze[i], Rk))
+        # todo возможно Rk нужно приводить к mm()
+        ee_e.append(screen_func(psi_i[i], Ze[i], Rk))
+        ee_h.append(screen_func(psi_i[i], Ze[i], Rk))
+        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
     elif screen_type == "4":
-        print("ЭЭЕ =", screen_func(psi_i[i], Ze[i], mm(d), p),
-              "ЭЭН =", screen_func(psi_i[i], Zh[i], mm(d), p))
+        ee_e.append(screen_func(psi_i[i], Ze[i], mm(d), p))
+        ee_h.append(screen_func(psi_i[i], Zh[i], mm(d), p))
+        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
     print()
 
 # 4
-# todo Постройте зависимости ЭЭE(λ), ЭЭH(λ) по анало- гии с рис. 3.1,3.2.
+plt.title("Эффективность ЭЭ экрана")
 
+x_actual_values = []
+for i in range(0, N+1):
+    x_actual_values.append(i)
+
+# для равного расстояния между значениями на оси x
+plt.xticks(x_actual_values, ai)
+plt.plot(x_actual_values, ee_e, label="Ee", marker="o")
+plt.plot(x_actual_values, ee_h, label="Eh", marker="o")
+
+plt.gca().invert_xaxis()
+
+plt.xlabel("λ‎, м")
+plt.ylabel("ЭЭ, дб")
+plt.legend()
+
+plt.show()
 
 input("Нажмите Enter для выхода из прорграммы")
 exit(0)
