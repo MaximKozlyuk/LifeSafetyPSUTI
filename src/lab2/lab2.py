@@ -19,6 +19,9 @@ class HarmfulSubstances(object):
     def __init__(self) -> None:
         super().__init__()
 
+    def Pk(self, C_rz_, C0_):
+        return
+
 
 props = PropertiesFile("lab2.properties")
 properties = props.properties("=")
