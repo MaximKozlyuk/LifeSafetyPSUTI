@@ -43,12 +43,12 @@ def metal_screen(psi_, p_, Zi, d_, m_, ai_):
 # формула 3.2
 def metal_net_screen(psi_, p_, Zi, r_, s_):
     dee = (math.pi * (r_ ** 2)) / s_
-    return psi_ * (((dee / p_) * Zi) ** (1/2)) * math.exp((math.pi * dee) / (s_ - dee))
+    return 20 * math.log10(psi_ * (((dee / p_) * Zi) ** (1/2)) * math.exp((math.pi * dee) / (s_ - dee)))
 
 
 # формула 3.3
 def paint_screen(psi_, Zi, Rk_):
-    return psi_ * 1.25 * math.pi * ((Zi * Rk_) ** (1/2))
+    return 20 * math.log10(psi_ * 1.25 * math.pi * ((Zi * Rk_) ** (1/2)))
 
 
 # формула 3.4
@@ -89,7 +89,7 @@ print("Для выбора значения из примера ничего н�
 print("Введите число декадных длин волны, пример: 4")
 N = int(default_input(4))
 
-# todo в зависимости от варианта предлагать только ввод нужных параметров
+# todo в зависимости от варианта предлагать ввод только нужных параметров
 # размеры экрана (м)
 print("Введите размеры экрана: ширина, длина, высота (м), 2.5, 1.0, 1.5\n")
 b = float(default_input(2.5))
@@ -164,20 +164,20 @@ for i in range(0, N+1):
     if screen_type == "1":
         ee_e.append(metal_screen(psi_i[i], p, Ze[i], mm(d), mm(m), ai[i]))
         ee_h.append(metal_screen(psi_i[i], p, Zh[i], mm(d), mm(m), ai[i]))
-        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
+        print("ЭЭЕ =", ee_e[i], "Дб ЭЭН =", ee_h[i], "Дб")
     elif screen_type == "2":
         ee_e.append(screen_func(psi_i[i], p, Ze[i], mm(rs), mm(s)))
         ee_h.append(screen_func(psi_i[i], p, Zh[i], mm(rs), mm(s)))
-        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
+        print("ЭЭЕ =", ee_e[i], "Дб ЭЭН =", ee_h[i], "Дб")
     elif screen_type == "3":
         # todo возможно Rk нужно приводить к mm()
         ee_e.append(screen_func(psi_i[i], Ze[i], Rk))
         ee_h.append(screen_func(psi_i[i], Ze[i], Rk))
-        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
+        print("ЭЭЕ =", ee_e[i], "Дб ЭЭН =", ee_h[i], "Дб")
     elif screen_type == "4":
         ee_e.append(screen_func(psi_i[i], Ze[i], mm(d), p))
         ee_h.append(screen_func(psi_i[i], Zh[i], mm(d), p))
-        print("ЭЭЕ =", ee_e[i], "ЭЭН =", ee_h[i])
+        print("ЭЭЕ =", ee_e[i], "Дб ЭЭН =", ee_h[i], "Дб")
     print()
 
 # 4

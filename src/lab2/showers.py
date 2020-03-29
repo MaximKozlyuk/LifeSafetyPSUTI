@@ -1,4 +1,4 @@
-from src.properties import CSVFile
+from src.util.properties import CSVFile
 
 
 class Shower(object):

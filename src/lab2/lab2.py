@@ -1,14 +1,14 @@
 from src.lab2.heat_removing import choose_calculation
 from src.lab2.showers import ShowersTable
-from src.properties import PropertiesFile
+from src.util.properties import PropertiesFile
 
 """
-  программа работает не для всех вариантов
-  
-  Вариант 11
-  душ: ПДВ    x = 0.65 м  vв = 1.5 м/с
-  tрз = 23.9  tнм = 22.0
-  Срз = 16.7  С0 = 8.7  ПДК = 13.2 мг/м^3
+  Программа работает не для всех вариантов
+  Протестирован 11 вариант
+  Не реализованна возможность повтора расчетов:  
+    'Если |tох − t0| ≤ 0.5 ◦C, то расчет душа закончен, иначе:
+    – изменяем t0 и повторяем расчеты по пунктам 1...9, 
+    – или выбираем иной тип душа и проходим шаги 1...9.'
 """
 
 
@@ -27,7 +27,6 @@ class HarmfulSubstances(object):
             print(e)
             raise Exception("Ошибка при выборе метода расчета в зависимости от Pk")
 
-    # todo 2 разные формулы в методичке ??? (C_rz_ - PDK_) * (C_rz_ - C0_)
     def Pk(self, C_rz_, C0_, PDK_):
         return (C_rz_ - PDK_) / (C_rz_ - C0_)
 
@@ -125,7 +124,7 @@ print("V0 =", V0, "м/с^2")
 
 # 4
 L0 = shower_calculation.L0(shower.square, V0)
-print("4. Обьем воздуха, проходящего через душ:")
+print("4. Объем воздуха, проходящего через душ:")
 print("L0 =", L0, "м^3/c")
 
 # 5
