@@ -38,7 +38,7 @@ class PropertiesFile(DefaultPath):
         return p
 
 
-class CSVTable(DefaultPath):
+class CSVFile(DefaultPath):
 
     def __init__(self, file_name) -> None:
         self.values = []
