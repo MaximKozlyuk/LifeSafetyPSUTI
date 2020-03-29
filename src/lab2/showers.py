@@ -9,7 +9,7 @@ class Shower(object):
     def __init__(self, name, size, square, m, n, z) -> None:
         self.name = name
         self.__size = size
-        self.square = float(square)
+        self.square = float(square)     # F0
         self.__m = m
         self.n = float(n)
         self.z = float(z)
