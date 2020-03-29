@@ -1,1 +1,1 @@
-#Расчеты в Mathcad
+Расчеты в Mathcad
