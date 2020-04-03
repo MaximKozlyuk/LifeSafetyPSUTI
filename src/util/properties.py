@@ -33,7 +33,7 @@ class PropertiesFile(DefaultPath):
                 parts = row.split(str(delimiter))
                 try:
                     p.append((parts[0], float(parts[1])))
-                except ValueError as e:               # to remove new line symbol
+                except ValueError as e:               # to remove new line symbol in case if reading string value
                     p.append((parts[0], str(parts[1])[:len(str(parts[1]))-1]))
         return p
 
