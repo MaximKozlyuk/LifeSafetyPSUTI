@@ -14,7 +14,6 @@
 import math
 
 import matplotlib.pyplot as plt
-import sympy as sp
 
 from src.lab4.equation import EquationSystem
 from src.lab4.exhaust_hood import ExhaustHood
@@ -93,12 +92,12 @@ print("F2 =", F2, "м^2")
 
 # 5
 print("5. Поправочный коэффициент")
-K_p = 1 + (3 - F1 / F2) * (Wv / U_m)
+K_p = 1 + (3 - (F1 / F2)) * (Wv / U_m)
 print("Kп =", K_p)
 
 # 6
-print("Вычисляем производительность зонта")
-L_prot = K_p * L_str * L1_prot
+print("6. Вычисляем производительность зонта")
+L_prot = K_p * L_str * L1_prot  # todo K или Кп ???
 print("Lпрот =", L_prot)
 
 # 7
@@ -107,7 +106,7 @@ C_pred = G / L_prot + Cpr
 print("Cпред =", C_pred)
 
 # 8
-print("8. Максимальная концентрация ВВ в удаляемом воздухе:")
+print("8. Максимальная концентрация в в удаляемом воздухе:")
 delta_C1_pred = (C_pred - Cpr) / (PDK - Cpr)
 print("∆C'пред =", delta_C1_pred)
 
@@ -125,14 +124,8 @@ chart_props = chart_props_file.properties("=")
 plt.title("Нахождение Kn")
 eq = EquationSystem(M, delta_C1_pred)
 
-S1_values = None
-S2_values = None
-if str(chart_props[0][1]) == "true":
-    S1_values = eq.S1_range(M - chart_props[1][1], M + chart_props[2][1], chart_props[3][1])
-    S2_values = eq.S2_range(M - chart_props[1][1], M + chart_props[2][1], chart_props[3][1])
-else:
-    S1_values = eq.S1_range(chart_props[4][1], chart_props[5][1], chart_props[6][1])
-    S2_values = eq.S2_range(chart_props[4][1], chart_props[5][1], chart_props[6][1])
+S1_values = eq.S1_range(chart_props[0][1], chart_props[1][1], chart_props[2][1])
+S2_values = eq.S2_range(chart_props[0][1], chart_props[1][1], chart_props[2][1])
 
 plt.plot(S1_values[0], S1_values[1], label="S1")
 plt.plot(S2_values[0], S2_values[1], label="S2")
@@ -143,12 +136,7 @@ plt.legend()
 
 plt.show()
 
-# находим Kn
-# x = sp.symbols('x', real=True)     # x - Kn
-# eq1 = sp.Eq(2.52, x)
-# eq2 = sp.Eq(- sp.exp((x - M) / delta_C1_pred))
-# ans = sp.solve((eq1, eq2), x)[0]
-Kn = M  # todo судя по графику Kn стремится к значению M, в идеале - расчитать по-настоящему
+Kn = M  # todo Kn должно - точка пересечения графиков S1 и S2
 n = 1 - math.exp(-2.52 * Kn)
 print("Kn =", Kn)
 print("n =", n)
