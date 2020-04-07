@@ -198,6 +198,7 @@ plt.xlabel("λ‎, м")
 plt.ylabel("ЭЭ, дб")
 plt.legend()
 
+plt.grid()
 plt.show()
 
 input("Нажмите Enter для выхода из прорграммы")
