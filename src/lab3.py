@@ -48,7 +48,7 @@ def metal_net_screen(psi_, p_, Zi, r_, s_):
 
 # формула 3.3
 def paint_screen(psi_, Zi, Rk_):
-    return 20 * math.log10(psi_ * 1.25 * math.pi * ((Zi * Rk_) ** (1/2)))
+    return 20 * math.log10(psi_ * 1.25 * math.pi * ((Zi / Rk_) ** (1/2)))
 
 
 # формула 3.4
